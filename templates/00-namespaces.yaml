@@ -1,24 +1,36 @@
+{{- $nsCert := .Values.namespaces.certManager -}}
+{{- $nsIstio := .Values.namespaces.istioSystem -}}
+{{- $nsKnative := .Values.namespaces.knative -}}
+{{- $nsKF := .Values.namespaces.kubeflow -}}
+
+{{- if not (lookup "v1" "Namespace" "" $nsCert) }}
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ .Values.namespaces.project }}
+  name: {{ $nsCert }}
 ---
+{{- end }}
+
+{{- if not (lookup "v1" "Namespace" "" $nsIstio) }}
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ .Values.namespaces.certManager }}
+  name: {{ $nsIstio }}
 ---
+{{- end }}
+
+{{- if not (lookup "v1" "Namespace" "" $nsKnative) }}
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ .Values.namespaces.istioSystem }}
+  name: {{ $nsKnative }}
 ---
+{{- end }}
+
+{{- if not (lookup "v1" "Namespace" "" $nsKF) }}
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ .Values.namespaces.knative }}
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: {{ .Values.namespaces.kubeflow }}
+  name: {{ $nsKF }}
+{{- end }}
+
