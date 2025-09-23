@@ -1,0 +1,19 @@
+{{- if .Values.enable.istio }}
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kubeflow-istio-install
+  namespace: {{ .Values.namespaces.project }}
+spec:
+  interval: {{ .Values.kustomizations.intervals.default }}
+  timeout: {{ .Values.kustomizations.timeouts.medium }}
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: kubeflow-manifests
+  path: ./common/istio-1-24/istio-install/overlays/oauth2-proxy
+  targetNamespace: {{ .Values.namespaces.istioSystem }}
+  dependsOn:
+    - name: kubeflow-istio-crds
+{{- end }}

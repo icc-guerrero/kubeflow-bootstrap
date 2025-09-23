@@ -1,0 +1,34 @@
+# Namespaces
+namespaces:
+  project: unicc-aihub
+  certManager: cert-manager
+  istioSystem: istio-system
+  knative: knative-serving
+  kubeflow: kubeflow
+
+# Fuente de manifests
+kubeflow:
+  manifestsRepo: https://github.com/kubeflow/manifests
+  refTag: v1.10.1
+
+# Flags para activar/desactivar componentes
+enable:
+  certManager: true
+  istio: true
+  knative: true
+  kserve: true
+  dex: true
+  centralDashboard: true
+  pipelines: true
+  notebooks: true
+  profiles: true
+  trainingOperator: true
+
+# Timings
+kustomizations:
+  intervals:
+    default: 5m
+  timeouts:
+    short: 5m
+    medium: 10m
+    long: 15m

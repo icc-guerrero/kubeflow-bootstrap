@@ -1,0 +1,19 @@
+{{- if .Values.enable.pipelines }}
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kubeflow-pipelines
+  namespace: {{ .Values.namespaces.project }}
+spec:
+  interval: {{ .Values.kustomizations.intervals.default }}
+  timeout: {{ .Values.kustomizations.timeouts.long }}
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: kubeflow-manifests
+  path: ./apps/pipeline/upstream/env/cert-manager/platform-agnostic-multi-user
+  targetNamespace: {{ .Values.namespaces.kubeflow }}
+  dependsOn:
+    - name: kubeflow-admission-webhook
+{{- end }}

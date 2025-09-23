@@ -1,0 +1,10 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: kubeflow-manifests
+  namespace: {{ .Values.namespaces.project }}
+spec:
+  interval: {{ .Values.kustomizations.intervals.default }}
+  url: {{ .Values.kubeflow.manifestsRepo }}
+  ref:
+    tag: {{ .Values.kubeflow.refTag }}

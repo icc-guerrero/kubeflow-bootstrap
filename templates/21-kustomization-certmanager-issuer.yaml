@@ -1,0 +1,19 @@
+{{- if .Values.enable.certManager }}
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kubeflow-cert-manager-issuer
+  namespace: {{ .Values.namespaces.project }}
+spec:
+  interval: {{ .Values.kustomizations.intervals.default }}
+  timeout: {{ .Values.kustomizations.timeouts.short }}
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: kubeflow-manifests
+  path: ./common/cert-manager/kubeflow-issuer/base
+  targetNamespace: {{ .Values.namespaces.certManager }}
+  dependsOn:
+    - name: kubeflow-cert-manager-base
+{{- end }}
