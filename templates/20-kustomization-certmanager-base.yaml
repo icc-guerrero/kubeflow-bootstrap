@@ -15,4 +15,29 @@ spec:
     name: kubeflow-manifests
   path: ./common/cert-manager/base
   targetNamespace: {{ .Values.namespaces.certManager }}
+
+  # 👇 Parchea los Deployments para que la leader election use el ns "cert-manager"
+  patches:
+    # cert-manager controller
+    - target:
+        group: apps
+        version: v1
+        kind: Deployment
+        name: cert-manager
+        namespace: {{ .Values.namespaces.certManager }}
+      patch: |
+        - op: add
+          path: /spec/template/spec/containers/0/args/-
+          value: --leader-election-namespace={{ .Values.namespaces.certManager }}
+    # cainjector
+    - target:
+        group: apps
+        version: v1
+        kind: Deployment
+        name: cert-manager-cainjector
+        namespace: {{ .Values.namespaces.certManager }}
+      patch: |
+        - op: add
+          path: /spec/template/spec/containers/0/args/-
+          value: --leader-election-namespace={{ .Values.namespaces.certManager }}
 {{- end }}
