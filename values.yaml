@@ -1,4 +1,4 @@
-# Namespaces
+# Namespaces to be created
 namespaces:
   project: unicc-aihub
   certManager: cert-manager
@@ -6,12 +6,12 @@ namespaces:
   knative: knative-serving
   kubeflow: kubeflow
 
-# Fuente de manifests
+# Official kubeflow manifests repo and tag to use
 kubeflow:
   manifestsRepo: https://github.com/kubeflow/manifests
   refTag: v1.10.1
 
-# Flags para activar/desactivar componentes
+# Enable or disable components
 enable:
   certManager: true
   istio: true
@@ -23,6 +23,11 @@ enable:
   notebooks: true
   profiles: true
   trainingOperator: true
+
+oauth2Proxy:
+  enabled: true
+  # m2m-dex-only | m2m-dex-and-kind | m2m-dex-and-eks
+  overlay: m2m-dex-only
 
 # Timings
 kustomizations:
