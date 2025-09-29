@@ -34,8 +34,7 @@ kind: Namespace
 metadata:
   name: {{ $nsKF }}
 {{- end }}
-
-
+---
 {{- if not (lookup "v1" "Namespace" "" $nsoap) }}
 apiVersion: v1
 kind: Namespace
