@@ -14,7 +14,7 @@ spec:
     name: kubeflow-manifests
   # Overlay to create policies/filters in Istio to enforce authentication
   path: ./common/oauth2-proxy/overlays/{{ .Values.oauth2Proxy.overlay }}
-  targetNamespace: {{ .Values.namespaces.kubeflow }}
+  targetNamespace: {{ .Values.namespaces.oauth2proxy }}
   dependsOn:
     - name: kubeflow-istio-install
     - name: kubeflow-cluster-local-gateway
