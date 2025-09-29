@@ -5,6 +5,7 @@ namespaces:
   istioSystem: istio-system
   knative: knative-serving
   kubeflow: kubeflow
+  oauth2proxy: oauth2-proxy
 
 # Official kubeflow manifests repo and tag to use
 kubeflow:

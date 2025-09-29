@@ -2,6 +2,7 @@
 {{- $nsIstio := .Values.namespaces.istioSystem -}}
 {{- $nsKnative := .Values.namespaces.knative -}}
 {{- $nsKF := .Values.namespaces.kubeflow -}}
+{{- $nsoap := .Values.namespaces.oauth2proxy -}}
 
 {{- if not (lookup "v1" "Namespace" "" $nsCert) }}
 apiVersion: v1
@@ -34,3 +35,10 @@ metadata:
   name: {{ $nsKF }}
 {{- end }}
 
+
+{{- if not (lookup "v1" "Namespace" "" $nsoap) }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $nsoap }}
+{{- end }}
