@@ -3,7 +3,7 @@
 {{- $nsKnative := .Values.namespaces.knative -}}
 {{- $nsKF := .Values.namespaces.kubeflow -}}
 {{- $nsoap := .Values.namespaces.oauth2proxy -}}
-{{- $nsoap := .Values.namespaces.auth -}}
+{{- $nsauth := .Values.namespaces.auth -}}
 
 {{- if not (lookup "v1" "Namespace" "" $nsCert) }}
 apiVersion: v1
@@ -45,10 +45,10 @@ metadata:
 ---
 {{- end }}
 
-{{- if not (lookup "v1" "Namespace" "" $auth) }}
+{{- if not (lookup "v1" "Namespace" "" $nsauth) }}
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ $auth }}
+  name: {{ $nsauth }}
 ---
 {{- end }}
