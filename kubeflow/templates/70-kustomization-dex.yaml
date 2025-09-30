@@ -13,7 +13,7 @@ spec:
     kind: GitRepository
     name: kubeflow-manifests
   path: ./common/dex/overlays/oauth2-proxy
-  targetNamespace: {{ .Values.namespaces.kubeflow }}
+  targetNamespace: {{ .Values.namespaces.auth }}
   dependsOn:
     - name: kubeflow-istio-resources
 {{- end }}
