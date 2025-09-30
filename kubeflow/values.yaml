@@ -6,6 +6,7 @@ namespaces:
   knative: knative-serving
   kubeflow: kubeflow
   oauth2proxy: oauth2-proxy
+  auth: auth
 
 # Official kubeflow manifests repo and tag to use
 kubeflow:
