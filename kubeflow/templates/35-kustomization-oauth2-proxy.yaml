@@ -15,6 +15,23 @@ spec:
   # Overlay to create policies/filters in Istio to enforce authentication
   path: ./common/oauth2-proxy/overlays/{{ .Values.oauth2Proxy.overlay }}
   targetNamespace: {{ .Values.namespaces.oauth2proxy }}
+  # AuthorizationPolicies need to be in the istio-system namespace
+  # as they are applied to the istio-ingressgateway
+  patches:
+    - patch: |-
+        - op: replace
+          path: /metadata/namespace
+          value: {{ .Values.namespaces.istioSystem }}
+      target:
+        kind: AuthorizationPolicy
+        name: istio-ingressgateway-oauth2-proxy
+    - patch: |-
+        - op: replace
+          path: /metadata/namespace
+          value: {{ .Values.namespaces.istioSystem }}
+      target:
+        kind: AuthorizationPolicy
+        name: istio-ingressgateway-require-jwt  
   dependsOn:
     - name: kubeflow-istio-install
     - name: kubeflow-cluster-local-gateway
