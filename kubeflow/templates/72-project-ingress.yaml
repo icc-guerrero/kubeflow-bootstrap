@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: istio-ingressgateway
+  namespace: {{ .Values.namespaces.project }}
+spec:
+  type: ExternalName
+  externalName: istio-ingressgateway.{{ .Values.namespaces.istioSystem }}.svc.cluster.local
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
