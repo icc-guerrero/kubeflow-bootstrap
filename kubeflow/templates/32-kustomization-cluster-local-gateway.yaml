@@ -14,6 +14,21 @@ spec:
     name: kubeflow-manifests
   path: ./common/istio-1-24/cluster-local-gateway/base
   targetNamespace: {{ .Values.namespaces.istioSystem }}
+  patches:
+    - target:
+        kind: Service
+        name: cluster-local-gateway
+      patch: |-
+        - op: replace
+          path: /metadata/namespace
+          value: {{ .Values.namespaces.istioSystem }}
+    - target:
+        kind: Deployment
+        name: cluster-local-gateway
+      patch: |-
+        - op: replace
+          path: /metadata/namespace
+          value: {{ .Values.namespaces.istioSystem }}
   dependsOn:
     - name: kubeflow-istio-install
 {{- end }}
