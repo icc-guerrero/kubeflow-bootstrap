@@ -13,7 +13,7 @@ spec:
     kind: GitRepository
     name: kubeflow-manifests
   path: ./common/istio-1-24/cluster-local-gateway/base
-  targetNamespace: {{ .Values.namespaces.project }}
+  targetNamespace: {{ .Values.namespaces.istioSystem }}
   # patches:
   #   - target:
   #       kind: Service
