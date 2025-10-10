@@ -33,6 +33,15 @@ spec:
         - op: replace
           path: /metadata/namespace
           value: {{ .Values.namespaces.istioSystem }}
+      - target:
+        group: security.istio.io
+        version: v1beta1
+        kind: RequestAuthentication
+        name: dex-jwt
+      patch:
+        - op: replace
+          path: /metadata/namespace
+          value: {{ .Values.namespaces.istioSystem }}
   dependsOn:
     - name: kubeflow-istio-install
     - name: kubeflow-cluster-local-gateway
