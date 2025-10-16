@@ -31,11 +31,9 @@ oauth2Proxy:
   # m2m-dex-only | m2m-dex-and-kind | m2m-dex-and-eks
   overlay: m2m-dex-only
   cookieDomains:
-    - "sandbox.ai.unicc.org"
-    - "unicc-aihub-prod.un-icc.cloud"
+    - "example.com"
   whitelistDomains:
-    - "sandbox.ai.unicc.org"
-    - "unicc-aihub-prod.un-icc.cloud"
+    - "example.com"
 
 # Timings
 kustomizations:
