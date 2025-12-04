@@ -14,53 +14,6 @@ spec:
     name: kubeflow-manifests
   path: ./common/dex/overlays/oauth2-proxy
   targetNamespace: {{ .Values.namespaces.auth }}
-  patchesJson6902:
-    - target:
-        version: v1
-        kind: ConfigMap
-        name: dex
-      patch:
-        - op: replace
-          path: /data/config.yaml
-          value: |
-            issuer: "http://dex.auth.svc.cluster.local:5556/dex"
-            storage:
-              type: kubernetes
-              config:
-                inCluster: true
-            web:
-              http: 0.0.0.0:5556
-            logger:
-              level: {{ .Values.dex.logLevel | default "debug" | quote }}
-              format: text
-            oauth2:
-              skipApprovalScreen: {{ .Values.dex.skipApprovalScreen | default true }}
-            enablePasswordDB: {{ .Values.dex.enablePasswordDB | default true }}
-            {{- if .Values.dex.staticPasswords }}
-            staticPasswords:
-            {{- range .Values.dex.staticPasswords }}
-            - email: {{ .email | quote }}
-              hashFromEnv: {{ .hashFromEnv | default "DEX_USER_PASSWORD" }}
-              username: {{ .username | quote }}
-              userID: {{ .userID | quote }}
-            {{- end }}
-            {{- else }}
-            staticPasswords:
-            - email: "user@example.com"
-              hashFromEnv: DEX_USER_PASSWORD
-              username: "user"
-              userID: "15841185641784"
-            {{- end }}
-            staticClients:
-            # https://github.com/dexidp/dex/pull/1664
-            - idEnv: OIDC_CLIENT_ID
-              redirectURIs: ["/oauth2/callback"]
-              name: 'Dex Login Application'
-              secretEnv: OIDC_CLIENT_SECRET
-            {{- if .Values.dex.connectors }}
-            connectors:
-            {{- toYaml .Values.dex.connectors | nindent 4 }}
-            {{- end }}
   dependsOn:
     - name: kubeflow-istio-resources
 {{- end }}
