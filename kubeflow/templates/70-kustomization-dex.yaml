@@ -16,4 +16,58 @@ spec:
   targetNamespace: {{ .Values.namespaces.auth }}
   dependsOn:
     - name: kubeflow-istio-resources
+  patchesJson6902:
+    - target:
+        version: v1
+        kind: ConfigMap
+        name: dex
+      patch:
+        - op: replace
+          path: /data/config.yaml
+          value: |
+            issuer: {{ .Values.dex.issuerUrl }}
+            storage:
+              type: kubernetes
+              config:
+                inCluster: true
+            web:
+              http: 0.0.0.0:5556
+            logger:
+              level: "debug"
+              format: text
+            oauth2:
+              skipApprovalScreen: true
+            enablePasswordDB: true
+            staticPasswords:
+            - email: user@example.com
+              hashFromEnv: DEX_USER_PASSWORD
+              username: user
+              userID: "15841185641784"
+            staticClients:
+            # https://github.com/dexidp/dex/pull/1664
+            - idEnv: OIDC_CLIENT_ID
+              redirectURIs: ["/oauth2/callback"]
+              name: 'Dex Login Application'
+              secretEnv: OIDC_CLIENT_SECRET
+            connectors:
+            {{- range .Values.dex.connectors }}
+            - type: {{ .type }}
+              id: {{ .id }}
+              name: {{ .name | quote }}
+              config:
+                issuer: {{ .config.issuer }}
+                {{- if .config.issuerAlias }}
+                issuerAlias: {{ .config.issuerAlias }}
+                {{- end }}
+                redirectURI: {{ .config.redirectURI }}
+                clientID: {{ .config.clientID }}
+                clientSecret: {{ .config.clientSecret }}
+                {{- if .config.insecureSkipEmailVerified }}
+                insecureSkipEmailVerified: {{ .config.insecureSkipEmailVerified }}
+                {{- end }}
+                scopes:
+                {{- range .config.scopes }}
+                - {{ . }}
+                {{- end }}
+            {{- end }}
 {{- end }}

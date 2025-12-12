@@ -35,6 +35,8 @@ oauth2Proxy:
   whitelistDomains:
     - "example.com"
 dex:
+  # Dex issuer URL - this is the public URL where Dex is accessible
+  issuerUrl: "https://<public-url>:5556/dex"
   logLevel: "debug"  # debug, info, warn, error
   skipApprovalScreen: true
   enablePasswordDB: true
@@ -46,28 +48,27 @@ dex:
   # Microsoft Azure AD B2C Connector Configuration (using OIDC)
   connectors:
     - type: oidc
-      id: azure-b2c
-      name: Microsoft Azure AD B2C
+      id: <connector-id>
+      name: "<Connector Display Name>"
       config:
         # Use the OIDC Discovery endpoint you have (paste the full URL here)
         # Example: https://<tenant-name>.b2clogin.com/<tenant-id>/<custom-policy>/v2.0/
-        issuer: "PASTE_YOUR_OIDC_DISCOVERY_URL_HERE"
-        # Paste your Client ID
-        clientID: "PASTE_YOUR_CLIENT_ID_HERE"
-        # Paste your Secret Value (not the Secret ID)
-        clientSecret: "PASTE_YOUR_SECRET_VALUE_HERE"
+        issuer: "https://<tenant-name>.b2clogin.com/<tenant-id>/<custom-policy>/v2.0/"
+        # Alternative issuer URL for Azure B2C (tenant ID based)
+        issuerAlias: "https://<tenant-name>.b2clogin.com/<tenant-id>/v2.0/"
         # Redirect URI - must match what's configured in Azure AD B2C
-        redirectURI: "https://sandbox.ai.unicc.org/dex/callback"
+        redirectURI: "https://<public-url>/dex/callback"
+        # Paste your Client ID
+        clientID: "<client-id>"
+        # Paste your Secret Value (not the Secret ID)
+        clientSecret: "<client-secret>"
+        # Skip email verification
+        insecureSkipEmailVerified: true
         # Scopes to request (openid is required, add profile, email, etc.)
         scopes:
           - openid
           - profile
           - email
-        # Optional: Customize claim mappings
-        userIDKey: oid  # Use Azure's oid (object ID) as unique identifier
-        userNameKey: preferred_username  # Or 'email' or 'name'
-        # Optional: Get user info from userinfo endpoint
-        getUserInfo: true
 # Timings
 kustomizations:
   intervals:
