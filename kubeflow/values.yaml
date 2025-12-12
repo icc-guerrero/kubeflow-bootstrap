@@ -40,6 +40,9 @@ dex:
   logLevel: "debug"  # debug, info, warn, error
   skipApprovalScreen: true
   enablePasswordDB: true
+  # Enable copying secret from project namespace to auth namespace
+  # The secret name will be the same as the project namespace name
+  copySecretsFromProject: false
   staticPasswords:
     - email: "user@example.com"
       hashFromEnv: "DEX_USER_PASSWORD"
