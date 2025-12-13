@@ -42,6 +42,9 @@ spec:
         - op: replace
           path: /metadata/namespace
           value: {{ .Values.namespaces.istioSystem }}
+        - op: replace
+          path: /spec/jwtRules/0/issuer
+          value: {{ .Values.dex.issuerUrl }}
     - target:
         version: v1
         kind: ConfigMap
