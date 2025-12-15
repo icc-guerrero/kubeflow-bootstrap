@@ -16,6 +16,7 @@ spec:
   targetNamespace: {{ .Values.namespaces.auth }}
   dependsOn:
     - name: kubeflow-istio-resources
+    - name: copy-dex-secrets
   patchesJson6902:
     - target:
         version: v1
