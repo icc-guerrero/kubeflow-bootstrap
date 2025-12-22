@@ -16,4 +16,8 @@ spec:
   targetNamespace: {{ .Values.namespaces.kubeflow }}
   dependsOn:
     - name: kubeflow-admission-webhook
+  images:
+    - name: gcr.io/ml-pipeline/minio
+      newName: minio/minio
+      newTag: RELEASE.2019-08-14T20-37-41Z
 {{- end }}
