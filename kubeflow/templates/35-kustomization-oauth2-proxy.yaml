@@ -45,6 +45,11 @@ spec:
         - op: replace
           path: /spec/jwtRules/0/issuer
           value: {{ .Values.dex.issuerUrl }}
+        {{- if .Values.dex.jwksUri }}
+        - op: replace
+          path: /spec/jwtRules/0/jwksUri
+          value: {{ .Values.dex.jwksUri }}
+        {{- end }}
     - target:
         version: v1
         kind: ConfigMap

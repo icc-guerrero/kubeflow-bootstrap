@@ -37,6 +37,8 @@ oauth2Proxy:
 dex:
   # Dex issuer URL - this is the public URL where Dex is accessible
   issuerUrl: "https://<public-url>:5556/dex"
+  # Optional: Custom JWKS URI for JWT validation (if not set, defaults to issuer's JWKS endpoint)
+  # jwksUri: "https://custom-jwks-endpoint/keys"
   logLevel: "debug"  # debug, info, warn, error
   skipApprovalScreen: true
   enablePasswordDB: true
