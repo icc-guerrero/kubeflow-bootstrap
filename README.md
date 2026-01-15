@@ -27,19 +27,19 @@ The chart deploys Kubeflow components in a specific order using FluxCD Kustomiza
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│                         Infrastructure                               │
+│                         Infrastructure                              │
 ├─────────────────────────────────────────────────────────────────────┤
 │  cert-manager  →  Istio CRDs  →  Istio Install  →  Cluster Gateway  │
 └─────────────────────────────────────────────────────────────────────┘
                                     ↓
 ┌─────────────────────────────────────────────────────────────────────┐
-│                         Authentication                               │
+│                         Authentication                              │
 ├─────────────────────────────────────────────────────────────────────┤
-│              Dex  →  OAuth2 Proxy  →  Central Dashboard              │
+│              Dex  →  OAuth2 Proxy  →  Central Dashboard             │
 └─────────────────────────────────────────────────────────────────────┘
                                     ↓
 ┌─────────────────────────────────────────────────────────────────────┐
-│                      Kubeflow Components                             │
+│                      Kubeflow Components                            │
 ├─────────────────────────────────────────────────────────────────────┤
 │  Pipelines │ Notebooks │ Profiles │ Training Operator │ KServe      │
 └─────────────────────────────────────────────────────────────────────┘
