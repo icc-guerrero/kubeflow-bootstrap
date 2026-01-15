@@ -16,7 +16,7 @@ spec:
   path: ./common/cert-manager/base
   targetNamespace: {{ .Values.namespaces.certManager }}
 
-  # 👇 Parchea los Deployments para que la leader election use el ns "cert-manager"
+  # Patch Deployments so that leader election uses the "cert-manager" namespace
   patches:
     # cert-manager controller
     - target:
