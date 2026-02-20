@@ -36,7 +36,7 @@ oauth2Proxy:
     - "example.com"
   # Custom sign-in page branding
   providerDisplayName: "Dex"
-  # Custom SVG logo for the sign-in page (inline SVG content)
+  # Custom logo URL for the sign-in page (e.g. https://example.com/logo.svg)
   # If not set, the default Kubeflow logo is used
   customSignInLogo: ""
 dex:
