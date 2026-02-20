@@ -101,10 +101,8 @@ spec:
             redeem_url = "http://dex.auth.svc.cluster.local:5556/dex/token"
             oidc_jwks_url = "http://dex.auth.svc.cluster.local:5556/dex/keys"
 
-            # if `false`, a sign-in page is displayed before starting the login flow
-            # prevents background requests starting their own login flow on token expiry,
-            # which can lead to many CSRF cookies, potentially exceeding the cookie limit
-            skip_provider_button = false
+            # if `true`, skip the sign-in page and redirect directly to the provider (Dex)
+            skip_provider_button = true
 
             # style the sign-in page
             provider_display_name = "{{ .Values.oauth2Proxy.providerDisplayName | default "Dex" }}"
