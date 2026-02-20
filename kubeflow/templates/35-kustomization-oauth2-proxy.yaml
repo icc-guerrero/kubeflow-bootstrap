@@ -107,7 +107,7 @@ spec:
             skip_provider_button = false
 
             # style the sign-in page
-            provider_display_name = "Dex"
+            provider_display_name = "{{ .Values.oauth2Proxy.providerDisplayName | default "Dex" }}"
             custom_sign_in_logo = "/custom-theme/kubeflow-logo.svg"
             banner = "-"
             footer = "-"
@@ -139,6 +139,17 @@ spec:
 
             redirect_url = "/oauth2/callback"
             relative_redirect_url = true
+  {{- if .Values.oauth2Proxy.customSignInLogo }}
+    - target:
+        version: v1
+        kind: ConfigMap
+        name: oauth2-proxy-theme
+      patch:
+        - op: add
+          path: /data/kubeflow-logo.svg
+          value: |
+{{ .Values.oauth2Proxy.customSignInLogo | indent 12 }}
+  {{- end }}
   dependsOn:
     - name: kubeflow-istio-install
     - name: kubeflow-cluster-local-gateway

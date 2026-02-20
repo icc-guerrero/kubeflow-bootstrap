@@ -34,6 +34,11 @@ oauth2Proxy:
     - "example.com"
   whitelistDomains:
     - "example.com"
+  # Custom sign-in page branding
+  providerDisplayName: "Dex"
+  # Custom SVG logo for the sign-in page (inline SVG content)
+  # If not set, the default Kubeflow logo is used
+  customSignInLogo: ""
 dex:
   # Dex issuer URL - this is the public URL where Dex is accessible
   issuerUrl: "https://<public-url>:5556/dex"
