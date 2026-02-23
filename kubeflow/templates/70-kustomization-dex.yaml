@@ -69,8 +69,11 @@ spec:
                 getUserInfo: {{ .config.getUserInfo }}
                 {{- end }}
                 {{- if .config.overrideClaimMapping }}
-                overrideClaimMapping:
-                  {{- range $k, $v := .config.overrideClaimMapping }}
+                overrideClaimMapping: {{ .config.overrideClaimMapping }}
+                {{- end }}
+                {{- if .config.claimMapping }}
+                claimMapping:
+                  {{- range $k, $v := .config.claimMapping }}
                   {{ $k }}: {{ $v }}
                   {{- end }}
                 {{- end }}
