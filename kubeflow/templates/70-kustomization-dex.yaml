@@ -83,4 +83,67 @@ spec:
         - op: replace
           path: /spec/template/spec/containers/0/image
           value: ghcr.io/dexidp/dex:v2.44.0
+{{- if .Values.dex.customUI.enabled }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dex-custom-templates
+  namespace: {{ .Values.namespaces.auth }}
+data:
+  header.html: |
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>{{"{{ .Issuer }}"}}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="{{"{{ theme \"styles.css\" }}"}}" rel="stylesheet">
+        <link href="{{"{{ theme \"favicon.png\" }}"}}" rel="icon">
+        {{- if .Values.dex.customUI.css }}
+        <style>
+{{ .Values.dex.customUI.css | indent 10 }}
+        </style>
+        {{- end }}
+      </head>
+      <body class="theme-body">
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kubeflow-dex-custom-ui
+  namespace: {{ .Values.namespaces.project }}
+spec:
+  interval: {{ .Values.kustomizations.intervals.default }}
+  timeout: {{ .Values.kustomizations.timeouts.short }}
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: kubeflow-manifests
+  path: ./common/dex/overlays/oauth2-proxy
+  targetNamespace: {{ .Values.namespaces.auth }}
+  dependsOn:
+    - name: kubeflow-dex
+  patchesJson6902:
+    - target:
+        group: apps
+        version: v1
+        kind: Deployment
+        name: dex
+      patch:
+        - op: add
+          path: /spec/template/spec/volumes/-
+          value:
+            name: dex-custom-templates
+            configMap:
+              name: dex-custom-templates
+        - op: add
+          path: /spec/template/spec/containers/0/volumeMounts/-
+          value:
+            name: dex-custom-templates
+            mountPath: /srv/dex/web/templates/header.html
+            subPath: header.html
+{{- end }}
 {{- end }}

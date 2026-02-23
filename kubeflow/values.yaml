@@ -50,6 +50,21 @@ dex:
   # Enable copying secret from project namespace to auth namespace
   # The secret name will be the same as the project namespace name
   copySecretsFromProject: false
+  # Custom UI: Override the Dex login page appearance
+  # Set enabled to true, then configure css to inject custom styles
+  customUI:
+    enabled: false
+    # Custom CSS injected into the Dex login page via a header.html template override
+    # Example: hide the navbar and center the form vertically
+    css: ""
+    # css: |
+    #   .theme-navbar { display: none !important; }
+    #   .theme-body {
+    #     display: flex; flex-direction: column;
+    #     justify-content: center; align-items: center;
+    #     min-height: 100vh; margin: 0; padding: 0;
+    #   }
+    #   .theme-panel { width: 100%; max-width: 400px; }
   staticPasswords:
     - email: "user@example.com"
       hashFromEnv: "DEX_USER_PASSWORD"
