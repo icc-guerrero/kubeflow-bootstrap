@@ -32,6 +32,8 @@ spec:
                 inCluster: true
             web:
               http: 0.0.0.0:5556
+            frontend:
+              dir: /srv/dex/web
             logger:
               level: "debug"
               format: text
@@ -126,8 +128,9 @@ data:
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>{{"{{ .Issuer }}"}}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="{{"{{ theme \"styles.css\" }}"}}" rel="stylesheet">
-        <link href="{{"{{ theme \"favicon.png\" }}"}}" rel="icon">
+        <link href="static/main.css" rel="stylesheet">
+        <link href="theme/styles.css" rel="stylesheet">
+        <link rel="icon" href="theme/favicon.png">
         {{- if .Values.dex.customUI.css }}
         <style>
 {{ .Values.dex.customUI.css | indent 10 }}
@@ -135,5 +138,6 @@ data:
         {{- end }}
       </head>
       <body class="theme-body">
+        <div class="dex-container">
 {{- end }}
 {{- end }}
