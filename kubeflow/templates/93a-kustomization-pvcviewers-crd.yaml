@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: kubeflow-volumes-web-app
+  name: kubeflow-pvcviewers-crd
   namespace: {{ .Values.namespaces.project }}
 spec:
   interval: {{ .Values.kustomizations.intervals.default }}
@@ -12,10 +12,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: kubeflow-manifests
-  path: ./apps/volumes-web-app/upstream/overlays/istio
-  targetNamespace: {{ .Values.namespaces.kubeflow }}
+  path: ./apps/volumes-web-app/upstream/base/crds
   dependsOn:
-    - name: kubeflow-profiles
     - name: kubeflow-istio-resources
-    - name: kubeflow-pvcviewers-crd
 {{- end }}
