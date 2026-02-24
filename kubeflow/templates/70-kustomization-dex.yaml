@@ -39,12 +39,16 @@ spec:
               format: text
             oauth2:
               skipApprovalScreen: true
-            enablePasswordDB: true
+            enablePasswordDB: {{ .Values.dex.enablePasswordDB }}
+            {{- if and .Values.dex.enablePasswordDB .Values.dex.staticPasswords }}
             staticPasswords:
-            - email: user@example.com
-              hashFromEnv: DEX_USER_PASSWORD
-              username: user
-              userID: "15841185641784"
+            {{- range .Values.dex.staticPasswords }}
+            - email: {{ .email }}
+              hashFromEnv: {{ .hashFromEnv }}
+              username: {{ .username }}
+              userID: {{ .userID | quote }}
+            {{- end }}
+            {{- end }}
             staticClients:
             # https://github.com/dexidp/dex/pull/1664
             - idEnv: OIDC_CLIENT_ID
