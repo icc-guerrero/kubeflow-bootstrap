@@ -3,12 +3,12 @@ entries:
   kubeflow-flux-bootstrap:
   - apiVersion: v2
     appVersion: v1.10.1
-    created: "2026-02-24T14:02:12.167452+01:00"
+    created: "2026-02-24T14:03:13.613372+01:00"
     description: Kubeflow Bootstrap with FluxCD (GitRepository + Kustomization)
-    digest: f8b177e084486f18f2b52a9240815e8f1d6554f30b2518ca0e2369976543001b
+    digest: 8feb1e7503f57d18ece9cfce5489dfe14b07a57c65515c08a7a7278b6defd43d
     name: kubeflow-flux-bootstrap
     type: application
     urls:
     - https://icc-guerrero.github.io/kubeflow-bootstrap/kubeflow-flux-bootstrap-1.0.58.tgz
     version: 1.0.58
-generated: "2026-02-24T14:02:12.166165+01:00"
+generated: "2026-02-24T14:03:13.610698+01:00"
