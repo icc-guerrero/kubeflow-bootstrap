@@ -27,9 +27,9 @@ spec:
           value: |
             issuer: {{ .Values.dex.issuerUrl }}
             storage:
-              type: kubernetes
+              type: sqlite3
               config:
-                inCluster: true
+                file: /tmp/dex.db
             web:
               http: 0.0.0.0:5556
             frontend:
